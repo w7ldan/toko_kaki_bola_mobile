@@ -67,3 +67,48 @@ Penggunaannya di metode build: Metode build Anda memiliki tanda Widget build(Bui
 6. Jelaskan konsep "hot reload" di Flutter dan bagaimana bedanya dengan "hot restart".
 Hot Reload : Menyuntikkan pembaruan kode ke dalam Dart Virtual Machine (VM) yang sedang berjalan. UI diperbarui sesuai dengan perubahandalam hitungan milidetik. State aplikasi tetap terjaga. 
 Hot Restart : Mematikan Dart VM yang ada dan memulai yang baru. Ini akan menjalankan ulang seluruh aplikasi dari awal (mulai dari main()). State aplikasi di-reset. Digunakan ketika perubahan Anda terlalu besar untuk Hot Reload. Contoh paling umum adalah jika Anda mengubah constructor dari StatefulWidget atau mengubah data static.
+
+Tugas 8:
+1. Perbedaan Navigator.push() dan Navigator.pushReplacement()
+
+- `Navigator.push()` menambahkan route baru ke dalam stack navigasi, sehingga route sebelumnya tetap ada dan user dapat kembali ke route sebelumnya dengan tombol back. 
+
+- `Navigator.pushReplacement()` mengganti route saat ini dengan route baru, menghapus route sebelumnya dari stack sehingga user tidak dapat kembali ke route sebelumnya.
+
+Penggunaan dalam aplikasi Toko Kaki Bola:
+- `Navigator.push()` digunakan ketika menekan tombol "Create Product" dari halaman utama, karena kita ingin pengguna bisa kembali ke halaman utama.
+- `Navigator.pushReplacement()` digunakan dalam drawer dan setelah menyimpan produk, karena kita ingin mengganti halaman saat ini sepenuhnya.
+
+2. Pemanfaatan Hierarchy Widget
+
+Struktur hierarchy widget yang konsisten dibangun dengan:
+- Scaffold sebagai kerangka dasar setiap halaman
+- AppBar dengan warna tema konsisten
+- Drawer yang reusable di kedua halaman untuk navigasi
+- Body yang menampung konten utama dengan layout yang konsisten
+
+Dengan struktur ini, konsistensi UI/UX terjaga di seluruh aplikasi.
+
+3. Kelebihan Layout Widget
+
+
+Padding: Memberikan ruang kosong di sekitar widget, meningkatkan readability.
+Padding(
+  padding: const EdgeInsets.all(16.0),
+  child: Form(...)
+)
+SingleChildScrollView: Memungkinkan konten di-scroll jika melebihi layar.
+SingleChildScrollView(
+  child: Column(...)
+)
+ListView: Ideal untuk daftar elemen yang bisa di-scroll secara efisien.
+ListView(
+  children: []
+)
+
+4. Penyesuaian Warna Tema
+Warna tema disesuaikan melalui:
+
+theme: ThemeData(
+         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(secondary: Colors.greenAccent[400]),
+      ),

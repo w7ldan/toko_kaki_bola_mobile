@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_kaki_bola/menu.dart';
+import 'package:toko_kaki_bola/product_form.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -8,15 +9,31 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Toko Kaki Bola',
       theme: ThemeData(
-         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(secondary: Colors.blueAccent[400]),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.green,
+        ).copyWith(
+          secondary: Colors.greenAccent[400],
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.green, 
+          foregroundColor: Colors.white, 
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            foregroundColor: Colors.white, 
+          ),
+        ),
       ),
       home: MyHomePage(),
+      routes: {
+        '/form': (context) => const ProductFormPage(),
+      },
     );
   }
 }

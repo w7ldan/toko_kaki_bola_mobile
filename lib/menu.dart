@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'product_form.dart';
+import 'drawer.dart'; // Import drawer file
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -15,7 +16,7 @@ class MyHomePage extends StatelessWidget {
   ];
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -27,6 +28,7 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -40,12 +42,9 @@ class MyHomePage extends StatelessWidget {
                 InfoCard(title: 'Class', content: kelas),
               ],
             ),
-
             const SizedBox(height: 16.0),
-
             Center(
               child: Column(
-
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(top: 16.0),
@@ -57,7 +56,6 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   GridView.count(
                     primary: true,
                     padding: const EdgeInsets.all(20),
@@ -67,7 +65,7 @@ class MyHomePage extends StatelessWidget {
                     shrinkWrap: true,
                     children: items.map((ItemHomepage item) {
                       return ItemCard(item);
-                  }).toList(),
+                    }).toList(),
                   ),
                 ],
               ),
@@ -76,9 +74,8 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
     );
-    }
+  }
 }
-
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -109,11 +106,11 @@ class InfoCard extends StatelessWidget {
 }
 
 class ItemHomepage {
- final String name;
- final IconData icon;
- final Color color; 
+  final String name;
+  final IconData icon;
+  final Color color; 
 
- ItemHomepage(this.name, this.icon, this.color); 
+  ItemHomepage(this.name, this.icon, this.color); 
 }
 
 class ItemCard extends StatelessWidget {
@@ -125,14 +122,20 @@ class ItemCard extends StatelessWidget {
     return Material(
       color: item.color, 
       borderRadius: BorderRadius.circular(12),
-
       child: InkWell(
         onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}"))
+          if (item.name == "Create Product") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProductFormPage()),
             );
+          } else {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(content: Text("Kamu telah menekan tombol ${item.name}"))
+              );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
@@ -146,7 +149,7 @@ class ItemCard extends StatelessWidget {
                   size: 30.0,
                 ),
                 const Padding(padding: EdgeInsets.all(3)),
-                 Text(
+                Text(
                   item.name,
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.white),
@@ -158,5 +161,4 @@ class ItemCard extends StatelessWidget {
       ),
     );
   }
-
 }
