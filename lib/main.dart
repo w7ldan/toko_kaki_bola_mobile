@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:toko_kaki_bola/menu.dart';
+import 'package:toko_kaki_bola/login.dart';
 import 'package:toko_kaki_bola/product_form.dart'; 
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Provider(
+      create: (_) {
+        CookieRequest request = CookieRequest();
+        return request;
+      },
+      child: MaterialApp(
       title: 'Toko Kaki Bola',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
@@ -30,10 +38,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyHomePage(),
+      home: const LoginPage(),
       routes: {
         '/form': (context) => const ProductFormPage(),
-      },
+      },)
     );
   }
 }
